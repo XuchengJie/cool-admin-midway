@@ -302,6 +302,8 @@ export class BaseSysMenuService extends BaseService {
     // 生成Entity
     const entityPath = pathUtil.join(
       basePath,
+      '..',
+      'src',
       'modules',
       module,
       'entity',
@@ -310,6 +312,8 @@ export class BaseSysMenuService extends BaseService {
     // 生成Controller
     const controllerPath = pathUtil.join(
       basePath,
+      '..',
+      'src',
       'modules',
       module,
       'controller',
@@ -329,6 +333,8 @@ export class BaseSysMenuService extends BaseService {
     const basePath = this.app.getBaseDir();
     const configFilePath = pathUtil.join(
       basePath,
+      '..',
+      'src',
       'modules',
       module,
       'config.ts'
