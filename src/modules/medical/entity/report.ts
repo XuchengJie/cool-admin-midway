@@ -13,7 +13,7 @@ import { SpaceInfoEntity } from '../../space/entity/info';
  */
 @Entity('medical_report')
 export class MedicalReportEntity extends BaseEntity {
-  @PrimaryGeneratedColumn({ comment: '报告ID' })
+  @PrimaryGeneratedColumn('uuid', { comment: '报告ID' })
   id: number;
 
   @Column({ comment: '用户ID' })
@@ -32,4 +32,9 @@ export class MedicalReportEntity extends BaseEntity {
     inverseJoinColumn: { name: 'fileId', referencedColumnName: 'fileId' },
   })
   files: SpaceInfoEntity[];
+
+  // 用户姓名
+  nickName: string;
+  // 医生姓名
+  doctorName: string;
 }
