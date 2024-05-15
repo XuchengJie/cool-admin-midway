@@ -13,7 +13,7 @@ export class WelcomeController {
   @Get('/', { summary: '欢迎界面' })
   public async welcome() {
     await this.ctx.render('welcome', {
-      text: `HELLO COOL-ADMIN v${packageJson.version} 全栈开发就用COOL！！！`,
+      text: `HELLO MEDICAL ADMIN v${packageJson.version}`,
     });
   }
 }
