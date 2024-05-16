@@ -27,6 +27,7 @@ export class BaseAppEvent {
 
   @Event('onMenuInit')
   async onMenuInit() {
+    if (this.app.getEnv() != 'local') return;
     this.checkConfig();
     this.checkKeys();
   }
