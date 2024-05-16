@@ -26,6 +26,30 @@ export class MedicalReportService extends BaseService {
   medicalDoctorEntity: Repository<MedicalDoctorEntity>;
 
   /**
+   * 根据ID获得信息
+   * @param id
+   */
+  public async info(id: number) {
+    const report = await this.medicalReportEntity
+      .createQueryBuilder('a')
+      .select(['a.*', 'b.nickName as nickName'])
+      .leftJoin(MedicalUserEntity, 'b', 'a.userId = b.id')
+      .where('a.id = :id', { id: id })
+      .getRawOne();
+    if (report) {
+      const files = await this.medicalFilesEntity.findBy({
+        reportId: report.id,
+      });
+      if (files) {
+        report.files = files.map(e => {
+          return e.file;
+        });
+      }
+    }
+    return report;
+  }
+
+  /**
    * 新增
    * @param param
    */
