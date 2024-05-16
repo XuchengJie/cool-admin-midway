@@ -1,9 +1,12 @@
-import { BaseService } from '@cool-midway/core';
+import { BaseService, CoolCommException } from '@cool-midway/core';
 import { Provide } from '@midwayjs/decorator';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import { MedicalReportEntity } from '../entity/report';
+import { MedicalFilesEntity } from '../entity/files';
 import { Repository } from 'typeorm';
 import * as _ from 'lodash';
+import { MedicalUserEntity } from '../entity/user';
+import { MedicalDoctorEntity } from '../entity/doctor';
 
 /**
  * 系统用户
@@ -11,29 +14,50 @@ import * as _ from 'lodash';
 @Provide()
 export class MedicalReportService extends BaseService {
   @InjectEntityModel(MedicalReportEntity)
-  baseSysUserEntity: Repository<MedicalReportEntity>;
+  medicalReportEntity: Repository<MedicalReportEntity>;
+
+  @InjectEntityModel(MedicalFilesEntity)
+  medicalFilesEntity: Repository<MedicalFilesEntity>;
+
+  @InjectEntityModel(MedicalUserEntity)
+  medicalUserEntity: Repository<MedicalUserEntity>;
+
+  @InjectEntityModel(MedicalDoctorEntity)
+  medicalDoctorEntity: Repository<MedicalDoctorEntity>;
 
   /**
-   * 分页查询
-   * @param query
+   * 新增
+   * @param param
    */
-  async page(query: any) {
-    const { keyWord, status, doctorIds = [] } = query;
-    const sql = `
-        SELECT
-            a.id,a.userId,a.doctorId,a.viewDate,a.createTime,a.updateTime,
-            b.nickName as "nickName",
-            c.name as "doctorName"
-        FROM
-            medical_report a
-        LEFT JOIN user_info b ON a.userId = b.unionid
-        LEFT JOIN medical_doctor c ON a.doctorId = c.id
-        WHERE 1 = 1
-            ${this.setSql(!_.isEmpty(doctorIds), 'and a.doctorId in (?)', [
-              doctorIds,
-            ])}
-        `;
-    const result = await this.sqlRenderPage(sql, query);
-    return result;
+  async add(param: any) {
+    const userInfo = await this.medicalUserEntity.findOneBy({
+      id: param.userId,
+    });
+    if (!userInfo) {
+      throw new CoolCommException('用户不存在');
+    }
+    const doctorInfo = await this.medicalDoctorEntity.findOneBy({
+      id: param.doctorId,
+    });
+    if (!doctorInfo) {
+      throw new CoolCommException('XX不存在');
+    }
+    await this.medicalReportEntity.save(param);
+    await this.updateReportFiles(param);
+    return param.id;
+  }
+
+  /**
+   * 保存报告文件
+   * @param report
+   */
+  async updateReportFiles(report: MedicalReportEntity) {
+    if (_.isEmpty(report.files)) {
+      return;
+    }
+
+    for (const file of report.files) {
+      await this.medicalFilesEntity.save({ reportId: report.id, file });
+    }
   }
 }

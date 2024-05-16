@@ -1,12 +1,5 @@
 import { BaseEntity } from '@cool-midway/core';
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { SpaceInfoEntity } from '../../space/entity/info';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 /**
  * 医疗模块-报告信息
@@ -25,14 +18,8 @@ export class MedicalReportEntity extends BaseEntity {
   @Column({ comment: '查看日期', type: 'date' })
   viewDate: Date;
 
-  @ManyToMany(() => SpaceInfoEntity)
-  @JoinTable({
-    name: 'medical_report_files',
-    joinColumn: { name: 'reportId', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'fileId', referencedColumnName: 'fileId' },
-  })
-  files: SpaceInfoEntity[];
-
+  // 文件列表
+  files: string[];
   // 用户姓名
   nickName: string;
   // 医生姓名
