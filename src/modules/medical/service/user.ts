@@ -12,7 +12,20 @@ import * as md5 from 'md5';
 @Provide()
 export class MedicalUserService extends BaseService {
   @InjectEntityModel(MedicalUserEntity)
-  baseSysUserEntity: Repository<MedicalUserEntity>;
+  medicalUserEntity: Repository<MedicalUserEntity>;
+
+  /**
+   * 查询用户
+   */
+  async search(name: string) {
+    const menus = this.medicalUserEntity
+      .createQueryBuilder('user')
+      .select(['user.id', 'user.nickName'])
+      .where('user.nickName like :searchName', { searchName: `%${name}%` })
+      .limit(10)
+      .getMany();
+    return menus;
+  }
 
   /**
    * 修改之前
