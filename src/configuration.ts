@@ -16,6 +16,8 @@ import * as swagger from '@midwayjs/swagger';
 // import * as rpc from '@cool-midway/rpc';
 import * as task from '@cool-midway/task';
 import * as socketio from '@midwayjs/socketio';
+import { Application as SocketApplication } from '@midwayjs/socketio';
+import { authMiddleware } from './socket/middleware.auth';
 
 @Configuration({
   imports: [
@@ -55,8 +57,13 @@ export class ContainerLifeCycle {
   @App()
   app: IMidwayApplication;
 
+  @App('socketIO')
+  socketApp: SocketApplication;
+
   @Inject()
   logger: ILogger;
 
-  async onReady() {}
+  async onReady() {
+    this.socketApp.use(authMiddleware);
+  }
 }

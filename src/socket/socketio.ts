@@ -6,7 +6,10 @@ import {
   OnWSDisConnection,
 } from '@midwayjs/decorator';
 import { Context } from '@midwayjs/socketio';
-import { SocketMiddleware } from './middleware.auth';
+import { InjectEntityModel } from '@midwayjs/typeorm';
+import { Repository } from 'typeorm';
+import { MedicalLogEntity } from '../modules/medical/entity/log';
+
 /**
  * 测试
  */
@@ -15,12 +18,17 @@ export class HelloController {
   @Inject()
   ctx: Context;
 
+  @InjectEntityModel(MedicalLogEntity)
+  medicalLogEntity: Repository<MedicalLogEntity>;
+
   // 客户端连接
-  @OnWSConnection({
-    middleware: [SocketMiddleware],
-  })
+  @OnWSConnection()
   async onConnectionMethod() {
     console.log('on client connect', this.ctx.id);
+    this.ctx.data.remoteip = this.ctx.client.conn.remoteAddress;
+    this.ctx.data.startTime = this.ctx.startTime;
+    this.ctx.data.medical = false;
+    this.ctx.data.insurance = false;
     this.ctx.emit('data', '连接成功');
   }
 
@@ -38,10 +46,43 @@ export class HelloController {
     if (isMessage(data)) {
       switch (data.type) {
         case 'url':
-          this.ctx.data.url = data.message;
+          try {
+            const url = new URL(data.message);
+            this.ctx.data.url = url.hostname;
+          } catch (_) {}
+          break;
+        case 'rsync':
           break;
       }
     }
+  }
+
+  // 代理状态事件
+  @OnWSMessage('proxy.rsync')
+  async proxyStatusMessage(data: any) {}
+
+  // 同步状态事件
+  @OnWSMessage('rsync.status')
+  async rsyncStatusMessage(data: any) {}
+
+  // 同步进度事件
+  @OnWSMessage('rsync.progress')
+  async rsyncProgressMessage(data: any) {}
+
+  // 同步数据事件
+  @OnWSMessage('rsync.data')
+  async rsyncDataMessage(data: any) {}
+
+  // 同步medical服务状态事件
+  @OnWSMessage('rsync.service.medical')
+  async rsyncServiceMedicalMessage(status: boolean) {
+    this.ctx.data.medical = status;
+  }
+
+  // 同步insurance服务状态事件
+  @OnWSMessage('rsync.service.insurance')
+  async rsyncServiceInsuranceMessage(status: boolean) {
+    this.ctx.data.insurance = status;
   }
 }
 
