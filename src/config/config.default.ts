@@ -9,7 +9,7 @@ import Redis from 'ioredis';
 import { redisStore } from 'cache-manager-ioredis-yet';
 
 const redis = {
-  host: '192.168.1.34',
+  host: '127.0.0.1',
   port: 6379,
   password: '',
   db: 0,
@@ -65,7 +65,7 @@ export default {
         store: redisStore,
         options: {
           port: 6379,
-          host: '192.168.1.34',
+          host: '127.0.0.1',
           password: '',
           ttl: 0,
           db: 0,
@@ -75,7 +75,7 @@ export default {
   },
   cool: {
     redis: {
-      host: '192.168.1.34',
+      host: '127.0.0.1',
       port: 6379,
       password: '',
       db: 0,
