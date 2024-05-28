@@ -1,0 +1,331 @@
+[
+   {
+      "name": "后台管理",
+      "router": null,
+      "perms": null,
+      "type": 0,
+      "icon": "icon-monitor",
+      "orderNum": 0,
+      "viewPath": null,
+      "keepAlive": true,
+      "isShow": true,
+      "childMenus": [
+         {
+            "name": "人员管理",
+            "router": "/medical/doctor",
+            "perms": null,
+            "type": 1,
+            "icon": "icon-user",
+            "orderNum": 1,
+            "viewPath": "modules/medical/views/doctor.vue",
+            "keepAlive": true,
+            "isShow": true,
+            "childMenus": [
+               {
+                  "name": "删除",
+                  "router": null,
+                  "perms": "medical:doctor:delete",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "修改",
+                  "router": null,
+                  "perms": "medical:doctor:update,medical:doctor:info",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "单个信息",
+                  "router": null,
+                  "perms": "medical:doctor:info",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "列表查询",
+                  "router": null,
+                  "perms": "medical:doctor:list",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "分页查询",
+                  "router": null,
+                  "perms": "medical:doctor:page",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "新增",
+                  "router": null,
+                  "perms": "medical:doctor:add",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               }
+            ]
+         },
+         {
+            "name": "用户管理",
+            "router": "/medical/user",
+            "perms": null,
+            "type": 1,
+            "icon": "icon-dept",
+            "orderNum": 2,
+            "viewPath": "modules/medical/views/user.vue",
+            "keepAlive": true,
+            "isShow": true,
+            "childMenus": [
+               {
+                  "name": "删除",
+                  "router": null,
+                  "perms": "medical:user:delete",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "修改",
+                  "router": null,
+                  "perms": "medical:user:update,medical:user:info",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "单个信息",
+                  "router": null,
+                  "perms": "medical:user:info",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "列表查询",
+                  "router": null,
+                  "perms": "medical:user:list",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "分页查询",
+                  "router": null,
+                  "perms": "medical:user:page",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "新增",
+                  "router": null,
+                  "perms": "medical:user:add",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               }
+            ]
+         },
+         {
+            "name": "报告管理",
+            "router": "/medical/report",
+            "perms": null,
+            "type": 1,
+            "icon": "icon-dict",
+            "orderNum": 0,
+            "viewPath": "modules/medical/views/report.vue",
+            "keepAlive": true,
+            "isShow": true,
+            "childMenus": [
+               {
+                  "name": "删除",
+                  "router": null,
+                  "perms": "medical:report:delete",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "修改",
+                  "router": null,
+                  "perms": "medical:report:update,medical:report:info",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "单个信息",
+                  "router": null,
+                  "perms": "medical:report:info",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "列表查询",
+                  "router": null,
+                  "perms": "medical:report:list",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "分页查询",
+                  "router": null,
+                  "perms": "medical:report:page",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "新增",
+                  "router": null,
+                  "perms": "medical:report:add",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               }
+            ]
+         },
+         {
+            "name": "代理管理",
+            "router": "/medical/proxy",
+            "perms": null,
+            "type": 1,
+            "icon": "icon-monitor",
+            "orderNum": 4,
+            "viewPath": "modules/medical/views/proxy.vue",
+            "keepAlive": true,
+            "isShow": true,
+            "childMenus": [
+               {
+                  "name": "删除",
+                  "router": null,
+                  "perms": "medical:proxy:delete",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "代理列表",
+                  "router": null,
+                  "perms": "medical:proxy:list",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "代理详情",
+                  "router": null,
+                  "perms": "medical:proxy:info",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               },
+               {
+                  "name": "新增",
+                  "router": null,
+                  "perms": "medical:proxy:add",
+                  "type": 2,
+                  "icon": null,
+                  "orderNum": 0,
+                  "viewPath": null,
+                  "keepAlive": true,
+                  "isShow": true,
+                  "childMenus": []
+               }
+            ]
+         }
+      ]
+   }
+]

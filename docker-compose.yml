@@ -3,16 +3,16 @@
 # 推荐使用安装了docker扩展的vscode打开目录 在本文件上右键可以快速启动，停止
 # 如不需要相关容器开机自启动，可注释掉 restart: always
 # 如遇端口冲突 可调整ports下 :前面的端口号
-version: "3.1"
 
 services:
-  coolDB:
+  mysql:
     image: mysql
     command:
       --default-authentication-plugin=mysql_native_password
       --sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
       --group_concat_max_len=102400
     restart: always
+    hostname: mysql
     volumes:
       - ./data/mysql/:/var/lib/mysql/
     environment:
@@ -22,15 +22,43 @@ services:
       MYSQL_USER: "root" # 业务库用户名
       MYSQL_PASSWORD: "123456" # 业务库密码
     ports:
-      - 3306:3306
+      - "3306:3306"
+    networks:
+      - medical_default
 
-  coolRedis:
+  redis:
     image: redis
     #command: --requirepass "12345678" # redis库密码,不需要密码注释本行
     restart: always
+    hostname: redis
     environment:
       TZ: Asia/Shanghai # 指定时区
     volumes:
       - ./data/redis/:/data/
     ports:
-      - 6379:6379
+      - "6379:6379"
+    networks:
+      - medical_default
+
+  medical-backend:
+    build:
+      context: .
+    restart: always
+    ports:
+      - "8001:8001"
+    container_name: medical-backend
+    hostname: medical-backend
+    image: medical-backend
+    links:
+      - mysql
+      - redis
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - medical_default
+
+networks:
+  medical_default:
+    name:  medical_default
+    driver: bridge

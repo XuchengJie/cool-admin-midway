@@ -308,7 +308,9 @@ export class TaskInfoService extends BaseService {
     if (!job) {
       return;
     }
-    const task = await this.taskInfoEntity.findOneBy({ id: job.id });
+    const task = await this.taskInfoEntity.findOneBy({
+      id: _.toNumber(job.id),
+    });
     const nextTime = await this.getNextRunTime(task.id);
     if (task) {
       // if (task.nextRunTime.getTime() == nextTime.getTime()) {

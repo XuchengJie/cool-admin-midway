@@ -42,27 +42,9 @@
   "base_sys_department": [
       {
           "id": 1,
-          "name": "COOL",
+          "name": "技术部",
           "parentId": null,
           "orderNum": 0
-      },
-      {
-          "id": 11,
-          "name": "开发",
-          "parentId": 12,
-          "orderNum": 2
-      },
-      {
-          "id": 12,
-          "name": "测试",
-          "parentId": 1,
-          "orderNum": 1
-      },
-      {
-          "id": 13,
-          "name": "游客",
-          "parentId": 1,
-          "orderNum": 3
       }
   ],
   "base_sys_role": [
@@ -87,8 +69,8 @@
           "passwordV": 7,
           "nickName": "管理员",
           "headImg": "https://cool-js.com/admin/headimg.jpg",
-          "phone": "18000000000",
-          "email": "team@cool-js.com",
+          "phone": "13480780000",
+          "email": "appdata@qq.com",
           "status": 1,
           "remark": "拥有最高权限的用户",
           "socketId": null

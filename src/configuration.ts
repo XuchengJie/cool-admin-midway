@@ -7,21 +7,24 @@ import { join } from 'path';
 import * as view from '@midwayjs/view-ejs';
 import * as staticFile from '@midwayjs/static-file';
 import * as cron from '@midwayjs/cron';
-// import * as crossDomain from '@midwayjs/cross-domain';
+import * as crossDomain from '@midwayjs/cross-domain';
 import * as cool from '@cool-midway/core';
 import { ILogger } from '@midwayjs/logger';
 import * as upload from '@midwayjs/upload';
 import { IMidwayApplication } from '@midwayjs/core';
-// import * as swagger from '@midwayjs/swagger';
+import * as swagger from '@midwayjs/swagger';
 // import * as rpc from '@cool-midway/rpc';
-// import * as task from '@cool-midway/task';
+import * as task from '@cool-midway/task';
+import * as socketio from '@midwayjs/socketio';
+import { Application as SocketApplication } from '@midwayjs/socketio';
+import { authMiddleware } from './socket/middleware.auth';
 
 @Configuration({
   imports: [
     // https://koajs.com/
     koa,
     // 是否开启跨域(注：顺序不能乱放！！！) http://www.midwayjs.org/docs/extensions/cross_domain
-    // crossDomain,
+    crossDomain,
     // 模板渲染 https://midwayjs.org/docs/extensions/render
     view,
     // 静态文件托管 https://midwayjs.org/docs/extensions/static_file
@@ -39,13 +42,14 @@ import { IMidwayApplication } from '@midwayjs/core';
     // rpc 微服务 远程调用
     // rpc,
     // 任务与队列
-    // task,
+    task,
     // swagger 文档  http://www.midwayjs.org/docs/extensions/swagger
-    // swagger,
+    swagger,
     {
       component: info,
       enabledEnvironment: ['local'],
     },
+    socketio,
   ],
   importConfigs: [join(__dirname, './config')],
 })
@@ -53,8 +57,13 @@ export class ContainerLifeCycle {
   @App()
   app: IMidwayApplication;
 
+  @App('socketIO')
+  socketApp: SocketApplication;
+
   @Inject()
   logger: ILogger;
 
-  async onReady() {}
+  async onReady() {
+    this.socketApp.use(authMiddleware);
+  }
 }
